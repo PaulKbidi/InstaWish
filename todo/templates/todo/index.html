@@ -2,19 +2,14 @@
 {% load static %}
 
 {% block titre %}
-Listes
+Home
 {% endblock titre %}
 
 
 {% block contenu %}
-{% for listes in response %}
-<p>{{listes.name}}</p>
-{% for tasks in listes.tasks %}
-<p>{{tasks.title}}</p>
-<p>{{tasks.description}}</p>
+{% for key, values in data.items %}
+    <p>{{ values.id }}</p>
+    <p>{{ values.email }}</p>
+    <p>{{ values.username }}</p>
 {% endfor %}
-{% endfor %}
-{{token.token}}
-<a href="{% url "todo-create-liste-url" %}">Create</a>
-
 {% endblock contenu %}

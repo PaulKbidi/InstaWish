@@ -32,6 +32,8 @@ ALLOWED_HOSTS = ['0.0.0.0','192.168.0.30','192.168.1.11']
 
 INSTALLED_APPS = [
     'todo',
+    'rest_framework',
+    'rest_framework.authtoken',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -69,6 +71,16 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'todo_api.wsgi.application'
+
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.SessionAuthentication'
+    ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated'
+    )
+}
 
 
 # Database

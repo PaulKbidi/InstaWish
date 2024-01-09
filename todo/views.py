@@ -3,51 +3,26 @@ from django.template import context
 from django.urls import reverse_lazy, reverse
 from django.contrib.auth.decorators import login_required
 import requests
+from django.http import JsonResponse
 import json
-from .forms import LoginForm, RegisterForm, ListeForm
+from .forms import LoginForm, RegisterForm
 # Create your views here.
 
 def starting_page_todo(request):
-    # reqUrl = "http://127.0.0.1:8000/api/listes"
+    reqUrl = "https://symfony-instawish.formaterz.fr/api/users"
 
-    response = requests.request("GET", reqUrl)
-    data = response.json()
-    context={"response":data}
-    return render(request, "todo/index.html", context=context)
+    headersList = {
+        "Accept": "*/*",
+        "User-Agent": "Thunder Client (https://www.thunderclient.com)",
+        "Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE3MDQ3OTU3NDYsImV4cCI6MTcwNDc5OTM0Niwicm9sZXMiOlsiUk9MRV9VU0VSIl0sInVzZXJuYW1lIjoicGF1bGsifQ.PKSwaWLQpdGre-dLpDvz4I0DifLoYTqoQ1OC5szA0Txr9F3YcR9DXejuSm4SK2SKgUVZBjyV1-XI3IWjkBjLESv7jDc1tiWF9V3sJpYYW9OtKckgD1FFpCMT97SMhXqt83iptlFYraFsLZKkjrCr6hEKkunzVSHESZYEf0yrEnXl-VW_rBoIIpMER7E3A4lJBPX9qTvkSJ4UOiCCxEFzmX8CEVo7JBd7EIa52ViZlYmSzjSuiCH3eItSONhuIcZkgGKosdTn7Eq51vAC9TB--g2hXf8Em6QNj69UGpzGUX4R_xgTHnk_w0nqzEGS9iRokwQShQ8bJ9C3L1II-VRjhw"
+    }
 
-def create_listes_page_todo(request):
-    # reqUrl = "http://127.0.0.1:8000/api/listes"
+    payload = ""
 
-    if request.method == 'POST':
-        form = ListeForm(request.POST)
-        
-        if form.is_valid():
-            name = form.cleaned_data["name"]
-            print(name)
-            
-            headersList = {
-                "Accept": "*/*",
-                "User-Agent": "Thunder Client (https://www.thunderclient.com)",
-                "Content-type": "application/ld+json",
-                "Authorization": "Bearer" 
-            }
-            payload = json.dumps({
-                "name": name
-            })
-            response = requests.request("POST", reqUrl, data=payload,  headers=headersList)
-            print(response)
-            return render(request, "todo/index.html")
-    else:
-        form = ListeForm()
-    return render(request, "todo/create_liste.html", {'form':form})
+    response = requests.request("GET", reqUrl, data=payload, headers=headersList)
 
-def tasks_page_todo(request):
-    # reqUrl = "http://127.0.0.1:8000/api/tasks"
-
-    response = requests.request("GET", reqUrl)
-    data = response.json()
-    context={"response":data}
-    return render(request, "todo/tasks.html", context=context)
+    data = response.json
+    return render(request, "todo/index.html", {'data':data})
 
 def login_page_todo(request):
     reqUrl = "https://symfony-instawish.formaterz.fr/api/login_check"
@@ -70,14 +45,22 @@ def login_page_todo(request):
                 "username": username,
                 "password": password
             })
-            response = requests.request("POST", reqUrl, data=payload,  headers=headersList)
-            datas = response.json()
-            context={"token":datas}
-            print(datas)
-            return render(request, "todo/index.html", context=context)
+            response = requests.post(reqUrl, data=payload,  headers=headersList)
+            if response.status_code ==200:
+                token_data = response.json()
+                token = token_data.get('token', None)
+                if token:
+                    request.session['api_token'] = token
+                    print(token)
+                    return render(request, "todo/index.html")
+                else:
+                    return JsonResponse({"message": "Erreur: Aucun token trouvé dans la réponse de l'API"})
+            else :
+                return JsonResponse({"message": f"Erreur: {response.status_code} - {response.text}"}, status=response.status_code)
+        return render(request, "todo/index.html")
     else:
         form = LoginForm()
-    return render(request, "todo/login.html", {'form':form})
+    return render(request, "registration/login.html", {'form':form})
 
 def register_page_todo(request):
     reqUrl = "https://symfony-instawish.formaterz.fr/api/register"
