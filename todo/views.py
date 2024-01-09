@@ -14,7 +14,7 @@ def starting_page_todo(request):
     headersList = {
         "Accept": "*/*",
         "User-Agent": "Thunder Client (https://www.thunderclient.com)",
-        "Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE3MDQ3OTU3NDYsImV4cCI6MTcwNDc5OTM0Niwicm9sZXMiOlsiUk9MRV9VU0VSIl0sInVzZXJuYW1lIjoicGF1bGsifQ.PKSwaWLQpdGre-dLpDvz4I0DifLoYTqoQ1OC5szA0Txr9F3YcR9DXejuSm4SK2SKgUVZBjyV1-XI3IWjkBjLESv7jDc1tiWF9V3sJpYYW9OtKckgD1FFpCMT97SMhXqt83iptlFYraFsLZKkjrCr6hEKkunzVSHESZYEf0yrEnXl-VW_rBoIIpMER7E3A4lJBPX9qTvkSJ4UOiCCxEFzmX8CEVo7JBd7EIa52ViZlYmSzjSuiCH3eItSONhuIcZkgGKosdTn7Eq51vAC9TB--g2hXf8Em6QNj69UGpzGUX4R_xgTHnk_w0nqzEGS9iRokwQShQ8bJ9C3L1II-VRjhw"
+        "Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE3MDQ3OTk2NzYsImV4cCI6MTcwNDgwMzI3Niwicm9sZXMiOlsiUk9MRV9VU0VSIl0sInVzZXJuYW1lIjoicGF1bGsifQ.iRp2QOpxS3LPo7aAFoYVcUopf-62MAFkOW8sMyEiqR1P9AmKKf6GLA56RWtJViifdEMTGTJas9gM0s6rdTZnyEar2h5BATN7ET87Scx-9rCsfmgIYO9t7jSlbjKKPPet-lMNnZwN_J4KSRXaZw7F__2NTiPihDgbu6J9vcmXoN7y2vOrolZL8FCvbi85Xnxyc4X6pajMmCmSml0oV4OsitgpRi6JA5FcmwDbc7hMjBRZKbQ30i-fXj93kFFgZXjebxeBGgqUnB9mqz84S3odyJ4AMT5ZTOjqgfTgKWUWzMvdEN0TRaFkzKaOkTwojVH_2jsf2o3TdaqPuGtkfuTwvQ"
     }
 
     payload = ""
@@ -62,6 +62,9 @@ def login_page_todo(request):
         form = LoginForm()
     return render(request, "registration/login.html", {'form':form})
 
+import requests
+from django.http import JsonResponse
+
 def register_page_todo(request):
     reqUrl = "https://symfony-instawish.formaterz.fr/api/register"
 
@@ -72,28 +75,29 @@ def register_page_todo(request):
             email = form.cleaned_data["email"]
             password = form.cleaned_data["password"]
             username = form.cleaned_data["username"]
-            print(email)
-            print(password)
-            print(username)
             
             post_files = {
-                "profilePicture": open((request.FILES["profilePicture"]), "rb"),
+                "profilePicture": request.FILES["profilePicture"],
             }
             
             headersList = {
                 "Accept": "*/*",
                 "User-Agent": "Thunder Client (https://www.thunderclient.com)",
-                "Content-Type": "multipart/form-data; boundary=kljmyvW1ndjXaOEAg4vPm6RBUqO6MC5A" 
             }
             
-            payload = "--kljmyvW1ndjXaOEAg4vPm6RBUqO6MC5A\r\nContent-Disposition: form-data; name=\"email\"\r\n\r\n",email,
-            "\r\n--kljmyvW1ndjXaOEAg4vPm6RBUqO6MC5A\r\nContent-Disposition: form-data; name=\"password\"\r\n\r\n",password,
-            "\r\n--kljmyvW1ndjXaOEAg4vPm6RBUqO6MC5A\r\nContent-Disposition: form-data; name=\"username\"\r\n\r\n",username,
-            "\r\n--kljmyvW1ndjXaOEAg4vPm6RBUqO6MC5A--\r\n"
+            payload = {
+                "email": email,
+                "password": password,
+                "username": username,
+            }
+
+            response = requests.post(reqUrl, headers=headersList, data=payload, files=post_files)
             
-            response = requests.request("POST", reqUrl, data=payload, headers=headersList, files=post_files)
             print(response.text)
+            
             return render(request, "todo/index.html")
     else:
         form = RegisterForm()
-    return render(request, "todo/register.html", {'form':form})
+    
+    return render(request, "todo/register.html", {'form': form})
+
