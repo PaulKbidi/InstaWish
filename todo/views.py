@@ -14,7 +14,7 @@ def starting_page_todo(request):
     headersList = {
         "Accept": "*/*",
         "User-Agent": "Thunder Client (https://www.thunderclient.com)",
-        "Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE3MDQ3OTk2NzYsImV4cCI6MTcwNDgwMzI3Niwicm9sZXMiOlsiUk9MRV9VU0VSIl0sInVzZXJuYW1lIjoicGF1bGsifQ.iRp2QOpxS3LPo7aAFoYVcUopf-62MAFkOW8sMyEiqR1P9AmKKf6GLA56RWtJViifdEMTGTJas9gM0s6rdTZnyEar2h5BATN7ET87Scx-9rCsfmgIYO9t7jSlbjKKPPet-lMNnZwN_J4KSRXaZw7F__2NTiPihDgbu6J9vcmXoN7y2vOrolZL8FCvbi85Xnxyc4X6pajMmCmSml0oV4OsitgpRi6JA5FcmwDbc7hMjBRZKbQ30i-fXj93kFFgZXjebxeBGgqUnB9mqz84S3odyJ4AMT5ZTOjqgfTgKWUWzMvdEN0TRaFkzKaOkTwojVH_2jsf2o3TdaqPuGtkfuTwvQ"
+        "Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE3MDQ4MDAxODcsImV4cCI6MTcwNDgwMzc4Nywicm9sZXMiOlsiUk9MRV9VU0VSIl0sInVzZXJuYW1lIjoiY291Y291MSJ9.VNefnaWX25iN0cS1g8_hWEzTU8dwUZPOTf89prLbtCBbkaKG2CRDv00tOdVCOZicoIYtoAG0d2wxH3R04-DejpqTyuci7Dv1zjIUTc3K5MUG2tHIEvcFytol2-2m2ruyQsfMOyUx4sQErHNsO7G3trerv8sdgMWSH8Phi5BUU0G60DO80WS74jtswJGMHDX2GJ4mg3w2AS2dXxbeRFLaQwkHhFXWuhGjJn3qcEQqaSldanxqghvVAvoFHN_dZ3uY8Lser3rG4VucbPYWngIZKR3JqV8heuFfPHdTXNF7_un46uVMWraE-tlhxE1z5CLb0z0bMKpj6nr6PgGpDfhKvQ" 
     }
 
     payload = ""
@@ -22,6 +22,7 @@ def starting_page_todo(request):
     response = requests.request("GET", reqUrl, data=payload, headers=headersList)
 
     data = response.json
+    print(response.text)
     return render(request, "todo/index.html", {'data':data})
 
 def login_page_todo(request):
