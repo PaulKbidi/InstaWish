@@ -1,0 +1,32 @@
+{% load static %}
+{% url "todo-starting-url" as listes %}
+{% url "todo-tasks-url" as tasks %}
+{% url "todo-login-url" as login %}
+{% url "todo-register-url" as register %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>{% block titre %}{% endblock titre %}</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="{% static 'test1/css/base_test1.css' %}">
+        {% block css %}{% endblock css %}
+    </head>
+    <header>
+        <div class="entete">
+            <nav>
+                <div class="liens-nav">
+                    <a href="{{listes}}">Listes</a>
+                    <a href="{{tasks}}">Taches</a>
+                    <a href="{{login}}">Connexion</a>
+                    <a href="{{register}}">Inscription</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+    <body>
+        {% block contenu %}{% endblock contenu %}
+    </body>
+</html>

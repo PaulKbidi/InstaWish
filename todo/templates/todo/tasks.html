@@ -1,0 +1,16 @@
+{% extends "base/base.html" %}
+{% load static %}
+
+{% block titre %}
+Taches
+{% endblock titre %}
+
+
+{% block contenu %}
+{% for response in response %}
+<p>{{response.id}}</p>
+<p>{{response.title}}</p>
+<p>{{response.description}}</p>
+{% endfor %}
+
+{% endblock contenu %}

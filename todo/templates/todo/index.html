@@ -1,0 +1,20 @@
+{% extends "base/base.html" %}
+{% load static %}
+
+{% block titre %}
+Listes
+{% endblock titre %}
+
+
+{% block contenu %}
+{% for listes in response %}
+<p>{{listes.name}}</p>
+{% for tasks in listes.tasks %}
+<p>{{tasks.title}}</p>
+<p>{{tasks.description}}</p>
+{% endfor %}
+{% endfor %}
+{{token.token}}
+<a href="{% url "todo-create-liste-url" %}">Create</a>
+
+{% endblock contenu %}
