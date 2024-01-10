@@ -2,11 +2,11 @@
 {% load static %}
 
 {% block titre %}
-Mon Profil
+{{ data.username }}
 {% endblock titre %}
 
 {% block css %}
-{% static "css/own.css" %}
+{% static "css/user.css" %}
 {% endblock css %}
 
 {% block contenu %}
@@ -14,5 +14,6 @@ Mon Profil
     <img src="https://symfony-instawish.formaterz.fr{{data.imageUrl}}">
     <p>{{ data.email }}</p>
     <p>{{ data.username }}</p>
+    <a href="{% url 'todo-follow-url' data.id %}">Follow</a>
 </div>
 {% endblock contenu %}

@@ -11,20 +11,22 @@
         <title>{% block titre %}{% endblock titre %}</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="{% static 'test1/css/base_test1.css' %}">
-        {% block css %}{% endblock css %}
+        <link rel="stylesheet" href={% block css %}""{% endblock css %}>
+        <link rel="stylesheet" href="{% static "css/base.css" %}">
     </head>
     <header>
-        <div class="entete">
-            <nav>
-                <div class="liens-nav">
-                    <a href="{{home}}">Home</a>
-                    <a href="{{own}}">Mon Profil</a>
-                    <a href="{{login}}">Connexion</a>
-                    <a href="{{register}}">Inscription</a>
-                </div>
+        <input type="checkbox" id="hamburger-input" class="burger-shower" />
+        <label id="hamburger-menu" for="hamburger-input">
+            <nav id="sidebar-menu">
+                    <ul>
+                        <li><a href="{{home}}">Home</a></li>
+                        <li><a href="{{own}}">Mon Profil</a></li>
+                        <li><a href="{{login}}">Connexion</a></li>
+                        <li><a href="{{register}}">Inscription</a></li>
+                    </ul>
             </nav>
-        </div>
+        </label>
+        <div class="overlay"></div>
     </header>
     <body>
         {% block contenu %}{% endblock contenu %}

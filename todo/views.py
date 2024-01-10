@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.template import context
 from django.urls import reverse_lazy, reverse
 from django.contrib.auth.decorators import login_required
@@ -26,6 +26,44 @@ def starting_page_todo(request):
 
     data = response.json
     return render(request, "todo/index.html", {'data':data})
+
+def user_page_todo(request, pk):
+    id = str(pk)
+    reqUrl = "https://symfony-instawish.formaterz.fr/api/user/"+id
+    print (reqUrl)
+    
+    api_token = request.session.get('api_token')
+    print(api_token)
+
+    headersList = {
+        "Accept": "*/*",
+        "User-Agent": "Thunder Client (https://www.thunderclient.com)",
+        "Authorization": "Bearer " + api_token
+    }
+
+    payload = ""
+
+    response = requests.request("GET", reqUrl, data=payload, headers=headersList)
+
+    data = response.json
+    return render(request, "todo/user.html", {'data':data})
+
+def follow_page_todo(request, pk):
+    api_token = request.session.get('api_token')
+    id = str(pk)
+    reqUrl = "https://symfony-instawish.formaterz.fr/api/follow/add/"+id
+
+    headersList = {
+        "Accept": "*/*",
+        "User-Agent": "Thunder Client (https://www.thunderclient.com)",
+        "Authorization": "Bearer " + api_token
+    }
+
+    payload = ""
+
+    response = requests.request("POST", reqUrl, data=payload,  headers=headersList)
+    print(response)
+    return redirect("todo-user-url", pk = pk)
 
 def own_page_todo(request):
     reqUrl = "https://symfony-instawish.formaterz.fr/api/me"
@@ -82,9 +120,6 @@ def login_page_todo(request):
     else:
         form = LoginForm()
     return render(request, "registration/login.html", {'form':form})
-
-import requests
-from django.http import JsonResponse
 
 def register_page_todo(request):
     reqUrl = "https://symfony-instawish.formaterz.fr/api/register"

@@ -1,0 +1,18 @@
+.user {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: cadetblue;
+    border-radius: 20px;
+    width: 20rem;
+    height: 10rem;
+    margin: auto;
+    padding: 3rem;
+}
+
+img {
+    width: 5rem;
+    height: 5rem;
+    border-radius: 50%;
+}

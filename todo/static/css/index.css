@@ -1,0 +1,27 @@
+.users {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+    margin: auto;
+    max-width: 150vh;
+}
+
+.user {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: cadetblue;
+    border-radius: 20px;
+    width: 20rem;
+    height: 10rem;
+    margin: 2rem;
+    padding: 2rem;
+}
+
+img {
+    width: 5rem;
+    height: 5rem;
+    border-radius: 50%;
+}

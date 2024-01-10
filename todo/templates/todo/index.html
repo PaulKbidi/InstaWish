@@ -5,11 +5,18 @@
 Home
 {% endblock titre %}
 
+{% block css %}
+{% static "css/index.css" %}
+{% endblock css %}
 
 {% block contenu %}
-{% for key, values in data.items %}
-    <p>{{ values.id }}</p>
-    <p>{{ values.email }}</p>
-    <p>{{ values.username }}</p>
-{% endfor %}
+<div class="users">
+    {% for key, values in data.items %}
+    <div class="user">
+        <img src="https://symfony-instawish.formaterz.fr{{values.imageUrl}}">
+        <p>{{ values.email }}</p>
+        <p><a href="{% url 'todo-user-url' values.id %}">{{ values.username }}</a></p>
+    </div>
+    {% endfor %}
+</div>
 {% endblock contenu %}
