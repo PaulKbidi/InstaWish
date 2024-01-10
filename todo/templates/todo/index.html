@@ -7,7 +7,7 @@ Home
 
 
 {% block contenu %}
-{% for values in data %}
+{% for key, values in data.items %}
     <p>{{ values.id }}</p>
     <p>{{ values.email }}</p>
     <p>{{ values.username }}</p>

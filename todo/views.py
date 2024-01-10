@@ -10,11 +10,13 @@ from .forms import LoginForm, RegisterForm
 
 def starting_page_todo(request):
     reqUrl = "https://symfony-instawish.formaterz.fr/api/users"
+    
+    api_token = request.session.get('api_token')
 
     headersList = {
         "Accept": "*/*",
         "User-Agent": "Thunder Client (https://www.thunderclient.com)",
-        "Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE3MDQ4MDAxODcsImV4cCI6MTcwNDgwMzc4Nywicm9sZXMiOlsiUk9MRV9VU0VSIl0sInVzZXJuYW1lIjoiY291Y291MSJ9.VNefnaWX25iN0cS1g8_hWEzTU8dwUZPOTf89prLbtCBbkaKG2CRDv00tOdVCOZicoIYtoAG0d2wxH3R04-DejpqTyuci7Dv1zjIUTc3K5MUG2tHIEvcFytol2-2m2ruyQsfMOyUx4sQErHNsO7G3trerv8sdgMWSH8Phi5BUU0G60DO80WS74jtswJGMHDX2GJ4mg3w2AS2dXxbeRFLaQwkHhFXWuhGjJn3qcEQqaSldanxqghvVAvoFHN_dZ3uY8Lser3rG4VucbPYWngIZKR3JqV8heuFfPHdTXNF7_un46uVMWraE-tlhxE1z5CLb0z0bMKpj6nr6PgGpDfhKvQ" 
+        "Authorization": "Bearer " + api_token
     }
 
     payload = ""
@@ -22,7 +24,6 @@ def starting_page_todo(request):
     response = requests.request("GET", reqUrl, data=payload, headers=headersList)
 
     data = response.json
-    print(response.text)
     return render(request, "todo/index.html", {'data':data})
 
 def login_page_todo(request):
@@ -34,8 +35,6 @@ def login_page_todo(request):
         if form.is_valid():
             username = form.cleaned_data["current_username"]
             password = form.cleaned_data["current_password"]
-            print(username)
-            print(password)
             
             headersList = {
                 "Accept": "*/*",
@@ -52,7 +51,6 @@ def login_page_todo(request):
                 token = token_data.get('token', None)
                 if token:
                     request.session['api_token'] = token
-                    print(token)
                     return render(request, "todo/index.html")
                 else:
                     return JsonResponse({"message": "Erreur: Aucun token trouvé dans la réponse de l'API"})
@@ -93,8 +91,6 @@ def register_page_todo(request):
             }
 
             response = requests.post(reqUrl, headers=headersList, data=payload, files=post_files)
-            
-            print(response.text)
             
             return render(request, "todo/index.html")
     else:
