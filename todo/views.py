@@ -12,6 +12,7 @@ def starting_page_todo(request):
     reqUrl = "https://symfony-instawish.formaterz.fr/api/users"
     
     api_token = request.session.get('api_token')
+    print(api_token)
 
     headersList = {
         "Accept": "*/*",
@@ -25,6 +26,26 @@ def starting_page_todo(request):
 
     data = response.json
     return render(request, "todo/index.html", {'data':data})
+
+def own_page_todo(request):
+    reqUrl = "https://symfony-instawish.formaterz.fr/api/me"
+    
+    api_token = request.session.get('api_token')
+    print(api_token)
+
+    headersList = {
+        "Accept": "*/*",
+        "User-Agent": "Thunder Client (https://www.thunderclient.com)",
+        "Authorization": "Bearer " + api_token
+    }
+
+    payload = ""
+
+    response = requests.request("GET", reqUrl, data=payload,  headers=headersList)
+
+    data = response.json
+    print(data)
+    return render(request, "todo/own.html", {'data':data})
 
 def login_page_todo(request):
     reqUrl = "https://symfony-instawish.formaterz.fr/api/login_check"
@@ -56,7 +77,8 @@ def login_page_todo(request):
                     return JsonResponse({"message": "Erreur: Aucun token trouvé dans la réponse de l'API"})
             else :
                 return JsonResponse({"message": f"Erreur: {response.status_code} - {response.text}"}, status=response.status_code)
-        return render(request, "todo/index.html")
+        else :
+            return render(request, "todo/index.html")
     else:
         form = LoginForm()
     return render(request, "registration/login.html", {'form':form})

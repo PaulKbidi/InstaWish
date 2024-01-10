@@ -1,5 +1,6 @@
 {% load static %}
 {% url "todo-starting-url" as home %}
+{% url "todo-own-url" as own %}
 {% url "todo-login-url" as login %}
 {% url "todo-register-url" as register %}
 <!DOCTYPE html>
@@ -18,6 +19,7 @@
             <nav>
                 <div class="liens-nav">
                     <a href="{{home}}">Home</a>
+                    <a href="{{own}}">Mon Profil</a>
                     <a href="{{login}}">Connexion</a>
                     <a href="{{register}}">Inscription</a>
                 </div>

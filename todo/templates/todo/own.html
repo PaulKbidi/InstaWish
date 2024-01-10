@@ -1,0 +1,14 @@
+{% extends "base/base.html" %}
+{% load static %}
+
+{% block titre %}
+Mon Profil
+{% endblock titre %}
+
+
+{% block contenu %}
+    <img src="https://symfony-instawish.formaterz.fr{{data.imageUrl}}">
+    <p>{{ data.id }}</p>
+    <p>{{ data.email }}</p>
+    <p>{{ data.username }}</p>
+{% endblock contenu %}
