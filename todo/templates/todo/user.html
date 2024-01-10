@@ -15,5 +15,6 @@
     <p>{{ data.email }}</p>
     <p>{{ data.username }}</p>
     <a href="{% url 'todo-follow-url' data.id %}">Follow</a>
+    <a href="{% url 'todo-unfollow-url' data.id %}">Unfollow</a>
 </div>
 {% endblock contenu %}

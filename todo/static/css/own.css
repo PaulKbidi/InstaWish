@@ -5,7 +5,7 @@
     align-items: center;
     background-color: cadetblue;
     border-radius: 20px;
-    width: 20rem;
+    max-width: 20rem;
     height: 10rem;
     margin: auto;
     padding: 3rem;

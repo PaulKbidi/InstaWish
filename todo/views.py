@@ -62,7 +62,24 @@ def follow_page_todo(request, pk):
     payload = ""
 
     response = requests.request("POST", reqUrl, data=payload,  headers=headersList)
-    print(response)
+    print(response.text)
+    return redirect("todo-user-url", pk = pk)
+
+def unfollow_page_todo(request, pk):
+    api_token = request.session.get('api_token')
+    id = str(pk)
+    reqUrl = "https://symfony-instawish.formaterz.fr/api/follow/remove/"+id
+
+    headersList = {
+        "Accept": "*/*",
+        "User-Agent": "Thunder Client (https://www.thunderclient.com)",
+        "Authorization": "Bearer " + api_token
+    }
+
+    payload = ""
+
+    response = requests.request("POST", reqUrl, data=payload,  headers=headersList)
+    print(response.text)
     return redirect("todo-user-url", pk = pk)
 
 def own_page_todo(request):
