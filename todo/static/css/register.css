@@ -35,9 +35,10 @@ form input::placeholder {
 input[type="file"] {
     font-size: 1.25em;
     font-weight: 700;
-    color: white;
+    color: #0ea7ee;
     background-color: #0ea7ee;
     display: inline-block;
+    width: 11.5rem;
 }
 
 #submit {
