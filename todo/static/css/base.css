@@ -17,7 +17,7 @@ body {
     padding: 0px;
     margin: 0px;
     font-family: 'Cabin', Sans-serif;
-    background: linear-gradient( to bottom, #ffcccc, #ffcccc 20%, transparent, transparent, #ffcccc 40%, #ffcccc 60%, transparent, transparent, #ffcccc 80%, #ffcccc 100%);
+    background: linear-gradient( to bottom, #0ea7ee, #0ea7ee 20%, transparent, transparent, #0ea7ee 40%, #0ea7ee 60%, transparent, transparent, #0ea7ee 80%, #0ea7ee 100%);
 }
 
 #hamburger-menu #sidebar-menu {
@@ -27,7 +27,7 @@ body {
     left: -250px;
     width: 200px;
     height: 100%;
-    background-color: #ffcccc;
+    background-color: #0ea7ee;
     opacity: 90%;
     transition: 0.3s;
     padding: 0px 10px;
@@ -35,7 +35,7 @@ body {
 }
 
 #hamburger-menu h3 {
-    color: #109691;
+    color: bisque;
     font-size: 2.2rem;
 }
 
@@ -49,7 +49,7 @@ body {
 }
 
 #hamburger-menu a {
-    color: #109691;
+    color: bisque;
     font-size: 1.3rem;
     text-decoration: none;
 }

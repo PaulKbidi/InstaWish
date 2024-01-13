@@ -20,7 +20,5 @@ from rest_framework.authtoken import views
 
 urlpatterns = [
     path('paulk/', admin.site.urls),
-    path('api-token-auth', views.obtain_auth_token, name='api-token-auth'),
-    # path('login', LoginView.as_view()),
     path('', include("todo.urls")),
 ]

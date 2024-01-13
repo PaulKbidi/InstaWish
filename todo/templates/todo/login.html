@@ -2,20 +2,20 @@
 {% load static %}
 
 {% block titre %}
-Register
+Login
 {% endblock titre %}
 
 {% block css %}
-{% static "css/register.css" %}
+{% static "css/login.css" %}
 {% endblock css %}
 
 {% block contenu %}
 <div class="form">
     <h1>Connexion</h1>
-    <form action="register" method="POST", enctype="multipart/form-data">
+    <form action="login" method="post">
         {% csrf_token %}
         {{form.as_p}}
-        <input id="submit" type="submit" value="Register">
+        <input id="submit" type="submit" value="Login">
     </form>
 </div>
 {% endblock contenu %}

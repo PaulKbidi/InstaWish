@@ -25,15 +25,13 @@ SECRET_KEY = 'django-insecure-vjzaszo+3rwad7+st1nzy@@)+8kvgvp889xzl)32_98+^p*r-s
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['0.0.0.0','192.168.0.30','192.168.1.11']
+ALLOWED_HOSTS = ['0.0.0.0','192.168.0.30','192.168.1.11','paulkbidi.fr']
 
 
 # Application definition
 
 INSTALLED_APPS = [
     'todo',
-    'rest_framework',
-    'rest_framework.authtoken',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -71,16 +69,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'todo_api.wsgi.application'
-
-
-REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework.authentication.SessionAuthentication'
-    ),
-    'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.IsAuthenticated'
-    )
-}
 
 
 # Database
@@ -129,6 +117,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = 'static/'
+
+LOGIN_REDIRECT_URL = '/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field

@@ -32,6 +32,14 @@ form input::placeholder {
     color: #0ea7ee;
 }
 
+input[type="file"] {
+    font-size: 1.25em;
+    font-weight: 700;
+    color: white;
+    background-color: #0ea7ee;
+    display: inline-block;
+}
+
 #submit {
     padding: 10px 15px;
     background-color: #0ea7ee; /* Couleur de fond du bouton */

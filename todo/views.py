@@ -12,20 +12,21 @@ def starting_page_todo(request):
     reqUrl = "https://symfony-instawish.formaterz.fr/api/users"
     
     api_token = request.session.get('api_token')
-    print(api_token)
+    if api_token == None:
+        return redirect('todo-login-url')
+    else :
+        headersList = {
+            "Accept": "*/*",
+            "User-Agent": "Thunder Client (https://www.thunderclient.com)",
+            "Authorization": "Bearer " + api_token
+        }
 
-    headersList = {
-        "Accept": "*/*",
-        "User-Agent": "Thunder Client (https://www.thunderclient.com)",
-        "Authorization": "Bearer " + api_token
-    }
+        payload = ""
 
-    payload = ""
+        response = requests.request("GET", reqUrl, data=payload, headers=headersList)
 
-    response = requests.request("GET", reqUrl, data=payload, headers=headersList)
-
-    data = response.json
-    return render(request, "todo/index.html", {'data':data})
+        data = response.json
+        return render(request, "todo/index.html", {'data':data})
 
 def user_page_todo(request, pk):
     id = str(pk)
@@ -122,12 +123,12 @@ def login_page_todo(request):
                 "password": password
             })
             response = requests.post(reqUrl, data=payload,  headers=headersList)
-            if response.status_code ==200:
+            if response.status_code == 200:
                 token_data = response.json()
                 token = token_data.get('token', None)
                 if token:
                     request.session['api_token'] = token
-                    return render(request, "todo/index.html")
+                    return redirect('todo-starting-url')
                 else:
                     return JsonResponse({"message": "Erreur: Aucun token trouvé dans la réponse de l'API"})
             else :
@@ -136,7 +137,7 @@ def login_page_todo(request):
             return render(request, "todo/index.html")
     else:
         form = LoginForm()
-    return render(request, "registration/login.html", {'form':form})
+    return render(request, "todo/login.html", {'form':form})
 
 def register_page_todo(request):
     reqUrl = "https://symfony-instawish.formaterz.fr/api/register"
