@@ -49,6 +49,48 @@ def user_page_todo(request, pk):
     data = response.json
     return render(request, "todo/user.html", {'data':data})
 
+def user_post_page_todo(request, pk):
+    id = str(pk)
+    reqUrl = "https://symfony-instawish.formaterz.fr/api/home/"+id
+    print (reqUrl)
+    
+    api_token = request.session.get('api_token')
+    print(api_token)
+
+    headersList = {
+        "Accept": "*/*",
+        "User-Agent": "Thunder Client (https://www.thunderclient.com)",
+        "Authorization": "Bearer " + api_token
+    }
+
+    payload = ""
+
+    response = requests.request("GET", reqUrl, data=payload, headers=headersList)
+    
+    data = response.json
+    return render(request, "todo/user_post.html", {'data':data})
+
+def post_page_todo(request, pk):
+    id = str(pk)
+    reqUrl = "https://symfony-instawish.formaterz.fr/api/liked/"+id
+    print (reqUrl)
+    
+    api_token = request.session.get('api_token')
+    print(api_token)
+
+    headersList = {
+        "Accept": "*/*",
+        "User-Agent": "Thunder Client (https://www.thunderclient.com)",
+        "Authorization": "Bearer " + api_token
+    }
+
+    payload = ""
+
+    response = requests.request("GET", reqUrl, data=payload, headers=headersList)
+    
+    print('__________________________________' + response.text)
+    return redirect('todo-user-post-url', pk = pk)
+
 def follow_page_todo(request, pk):
     api_token = request.session.get('api_token')
     id = str(pk)

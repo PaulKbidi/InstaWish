@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block titre %}
-Home
+{{ data.username }}
 {% endblock titre %}
 
 {% block css %}
@@ -11,14 +11,11 @@ Home
 
 {% block contenu %}
 <div class="users">
-    {% for key, values in data.items %}
+    {% for values in data %}
     <div class="user">
         <img src="https://symfony-instawish.formaterz.fr{{values.imageUrl}}">
-        <p>{{ values.email }}</p>
-        <p>
-            <a href="{% url 'todo-user-url' values.id %}">{{ values.username }}</a>
-            <a href="{% url 'todo-user-post-url' values.id %}">Post</a>
-        </p>
+        <p>{{ values.description }}</p>
+        <a href="{% url 'todo-post-url' values.id %}">Like</a>
     </div>
     {% endfor %}
 </div>
